@@ -9,13 +9,12 @@ import {
 import { useForm, Controller } from "react-hook-form";
 import RHFTextField from "../common/RHFTextField";
 import Grid from '@mui/material/Grid';
+import { zodResolver } from "@hookform/resolvers/zod";
+import { claimFormSchema } from "../schemas/claimFormSchema";
 
 export default function ClaimForm() {
-    const {
-        handleSubmit,
-        control,
-        watch,
-    } = useForm({
+    const { handleSubmit, control, watch, reset } = useForm({
+        resolver: zodResolver(claimFormSchema),
         defaultValues: {
             firstName: "",
             lastName: "",
@@ -34,6 +33,7 @@ export default function ClaimForm() {
     const onSubmit = (data) => {
         console.log("Form Data:", data);
         alert("Claim submitted successfully!");
+        reset()
     };
 
     const agree = watch("agree");
@@ -47,7 +47,6 @@ export default function ClaimForm() {
                 borderRadius: 6,
             }}
         >
-
             <Typography
                 mt={3}
                 variant="h4"
