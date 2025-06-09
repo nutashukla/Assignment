@@ -1,9 +1,12 @@
-import { Box, Grid } from "@mui/material";
+import { Box, Grid, useMediaQuery, useTheme } from "@mui/material";
 import MesotheliomaCard from "./components/MesotheliomaCard";
 import ClaimForm from "./components/ClaimForm";
 import FreeCaseReviewCard from "./components/FreeCaseReviewCard";
 
 function App() {
+  const muiTheme = useTheme();
+  const isSmallScreen = useMediaQuery(muiTheme.breakpoints.down('md'));
+
   return (
     <Box
       sx={{
@@ -26,11 +29,10 @@ function App() {
       }}>
         <Grid size={{ xs: 11, md: 4 }}>
           <Box mb={3}>
-            <FreeCaseReviewCard />
+            {isSmallScreen ? <MesotheliomaCard /> : <FreeCaseReviewCard />}
           </Box>
-          <MesotheliomaCard />
+          {isSmallScreen ? <FreeCaseReviewCard /> : <MesotheliomaCard />}
         </Grid>
-
         <Grid size={{ xs: 11, md: 4 }}>
           <ClaimForm />
         </Grid>
